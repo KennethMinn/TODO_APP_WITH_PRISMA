@@ -1,23 +1,15 @@
-import DeleteListButton from "@/components/DeleteListButton";
-import React from "react";
-
-interface List {
-  id: string;
-  title: string;
-}
+import List from "./List";
+import { TList } from "@/types";
 
 interface ListsProps {
-  lists: List[];
+  lists: TList[];
 }
 
 const Lists = ({ lists }: ListsProps) => {
   return (
     <div>
       {lists?.map((list) => (
-        <div className="flex gap-x-5 items-center mb-4" key={list.id}>
-          <h1>{list.title}</h1>
-          <DeleteListButton id={list.id} />
-        </div>
+        <List key={list.id} list={list} />
       ))}
     </div>
   );
