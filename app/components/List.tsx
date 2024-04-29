@@ -3,7 +3,7 @@
 import DeleteListButton from "@/components/DeleteListButton";
 import { TFormSchema, TList } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./AddForm";
 import { updateTodo } from "@/actions/updateList";
@@ -15,6 +15,7 @@ interface ListProps {
 
 const List = ({ list }: ListProps) => {
   const router = useRouter();
+  const [checked, setChecked] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
   const { register, handleSubmit } = useForm<TFormSchema>({
@@ -29,8 +30,13 @@ const List = ({ list }: ListProps) => {
     router.refresh();
   };
 
+  useEffect(() => {
+    console.log(checked);
+  }, [checked]);
+
   return (
     <div className="flex gap-x-5 items-center mb-4">
+      <input type="checkbox" onChange={(e) => setChecked(e.target.checked)} />
       {isEdit ? (
         <form onSubmit={handleSubmit(onUpdate)}>
           <input
@@ -40,7 +46,10 @@ const List = ({ list }: ListProps) => {
           />
         </form>
       ) : (
-        <h1 className=" cursor-pointer" onDoubleClick={() => setIsEdit(true)}>
+        <h1
+          className={`cursor-pointer ${checked && " line-through"}`}
+          onDoubleClick={() => setIsEdit(true)}
+        >
           {list.title}
         </h1>
       )}
