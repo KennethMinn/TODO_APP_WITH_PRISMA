@@ -6,4 +6,5 @@ export type TFormSchema = z.infer<typeof formSchema>;
 export interface TList {
   id: string;
   title: string;
+  checked: boolean;
 }

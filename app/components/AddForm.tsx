@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 export const formSchema = z.object({
   title: z.string().min(1),
+  checked: z.boolean().default(false),
 });
 
 const AddForm = () => {
@@ -20,7 +21,6 @@ const AddForm = () => {
     register,
     handleSubmit,
     reset,
-    getValues,
     formState: { errors, isSubmitting },
   } = useForm<TFormSchema>({ resolver: zodResolver(formSchema) });
 

@@ -15,7 +15,6 @@ interface ListProps {
 
 const List = ({ list }: ListProps) => {
   const router = useRouter();
-  const [checked, setChecked] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
   const { register, handleSubmit } = useForm<TFormSchema>({
@@ -24,19 +23,14 @@ const List = ({ list }: ListProps) => {
   });
 
   const onUpdate = (data: TFormSchema) => {
-    console.log(data);
     updateTodo(list.id, data);
     setIsEdit(false);
     router.refresh();
   };
 
-  useEffect(() => {
-    console.log(checked);
-  }, [checked]);
-
   return (
     <div className="flex gap-x-5 items-center mb-4">
-      <input type="checkbox" onChange={(e) => setChecked(e.target.checked)} />
+      <input type="checkbox" {...register("checked")} />
       {isEdit ? (
         <form onSubmit={handleSubmit(onUpdate)}>
           <input
@@ -47,7 +41,7 @@ const List = ({ list }: ListProps) => {
         </form>
       ) : (
         <h1
-          className={`cursor-pointer ${checked && " line-through"}`}
+          className={`cursor-pointer ${list.checked && " line-through"}`}
           onDoubleClick={() => setIsEdit(true)}
         >
           {list.title}

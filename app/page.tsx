@@ -4,8 +4,12 @@ import Lists from "./components/Lists";
 import AddForm from "./components/AddForm";
 
 const page = async () => {
-  const lists = await prisma.list.findMany();
-
+  const lists = await prisma.list.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  console.log(lists);
   return (
     <div className=" mt-2 flex flex-col items-center">
       <AddForm />
