@@ -10,7 +10,7 @@ const page = async ({ searchParams }: { searchParams: any }) => {
   const lists = await prisma.list.findMany({
     where: {
       title: {
-        contains: searchParams?.title,
+        contains: searchParams?.title, //title.includes(searchParams?.title)
       },
     },
     orderBy: {

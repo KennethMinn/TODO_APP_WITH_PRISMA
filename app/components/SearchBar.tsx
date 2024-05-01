@@ -14,8 +14,8 @@ const SearchBar = () => {
     const searchKey = form.search.value;
     if (!searchKey) return;
     newParams.set("title", searchKey);
-    router.push(`?${newParams}`);
-    form.search.value = "";
+    router.push(`?${newParams}`); //?title=searchKey
+    form.search.value = ""; //reset searchKey
   };
 
   return (
